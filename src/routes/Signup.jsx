@@ -3,7 +3,7 @@ import { useAuth } from '../AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [firstName, setFirstName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,14 +15,18 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage(''); // Clear previous errors
-    const { success, message } = await register(firstName, email, password);
+  
+    const result = await register(fullName, email, password); // Await the result
+  
     setLoading(false);
-    if (success) {
+  
+    if (result && result.success) {
       navigate('/dashboard');
     } else {
-      setErrorMessage(message || 'Registration failed. Please try again.');
+      setErrorMessage(result?.message || 'Registration failed. Please try again.');
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center bg-[#204E51] h-[100vh] px-[20px] max-md:px-[10px] flex-col">
@@ -44,8 +48,8 @@ const Signup = () => {
           <input
             type="text"
             placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             className="border border-black rounded-[20px] h-[60px] w-full px-[25px] text-[15px] text-black"
           />
           <input

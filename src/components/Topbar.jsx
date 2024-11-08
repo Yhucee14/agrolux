@@ -19,7 +19,8 @@ const Topbar = ({ handleLogout }) => {
 
         <div className="flex items-center gap-5 ">
           <div className="border h-[40px] w-[90px] text-[18px] flex items-center justify-center rounded-[15px]">
-          {user.firstName}
+          <p>{user?.firstName}</p>
+
           </div>
           <div
             className="cursor-pointer hidden max-md:flex "

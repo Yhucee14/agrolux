@@ -63,13 +63,13 @@ const Home = () => {
           }}
         ></div>
       </div>
-      <div className="h-auto justify-center flex mt-[20px] ">
+      {/* <div className="h-auto justify-center flex mt-[20px] ">
         <div className="flex items-center flex-col">
           <h1 className="text-[#204E51] text-[72px] font-bold max-[745px]:text-[50px] mx-[20px]">
             Our Awesome Features
           </h1>
           <div>
-            {/* <div className='max-w-[200px] w-full h-[150px] 'style={{ backgroundImage: `url('/img/1.png')`, backgroundSize: 'cover' }}></div> */}
+           
 
             <div className=" ">
               <div className="max-[1245px]:grid max-[1245px]:grid-rows-2 max-[1245px]:grid-flow-col flex max-[645px]:grid-rows-4 gap-5">
@@ -95,8 +95,8 @@ const Home = () => {
           </div>
 
         </div>
-      </div>
-      <div className="h-[100vh] ">
+      </div> */}
+      {/* <div className="h-[100vh] ">
         <div
           className="h-[688px] w-full  px-[150px] py-[10rem] max-[1331px]:px-[120px] max-[731px]:px-[2rem] justify-between text-white flex flex-col"
           style={{
@@ -125,8 +125,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="h-[100vh] flex items-center justify-center gap-[5rem] max-[1331px]:flex-col max-[1331px]:mx-[5px] mb-[30px]">
+      </div> */}
+      {/* <div className="h-[100vh] flex items-center justify-center gap-[5rem] max-[1331px]:flex-col max-[1331px]:mx-[5px] mb-[30px]">
         <div className="max-w-[660px] w-[100%] font-normal text-[25px] ">
           <h1 className="text-[72px] text-[#204e51] font-semibold max-[731px]:text-[50px]">
             The Benefits of Choosing to Use Agrolux
@@ -163,7 +163,7 @@ const Home = () => {
             backgroundSize: "cover",
           }}
         ></div>
-      </div>
+      </div> */}
       <div className="h-[100vh] relative md:h-[50vh]">
         <Footer />
       </div>

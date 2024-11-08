@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState,  } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('user'));
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
+  const [loggedIn, setLoggedIn] = useState(!!user);
 
   const login = async (email, password) => {
     try {
@@ -15,66 +15,66 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await response.json();
-      console.log('Login response:', data);
-
+      console.log('User data after registration:', data.user)
       if (response.ok) {
-        localStorage.setItem('user', JSON.stringify(data.user)); // Save user to localStorage
-        setUser(data.user);
+        setUser(data);
         setLoggedIn(true);
-        return { success: true }; // Indicate successful login
+        localStorage.setItem('user', JSON.stringify(data));
+        return { success: true };
+       
+
       } else {
         console.error('Login failed:', data.message);
         setLoggedIn(false);
-        return { success: false, message: data.message }; // Indicate failed login
+        return { success: false, message: data.message || 'Login failed' };
       }
     } catch (error) {
       console.error('Error during login:', error);
       setLoggedIn(false);
-      return { success: false, message: 'An unexpected error occurred.' }; // Indicate failed login
+      return { success: false, message: 'An unexpected error occurred.' };
     }
   };
+  
 
-  const register = async (firstName, email, password) => {
+  const register = async (fullName, email, password) => {
     try {
       const response = await fetch('https://agrolux.onrender.com/api/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstName, email, password }),
+        body: JSON.stringify({ fullName, email, password }),
       });
-
+  
       const data = await response.json();
+      
+      // Log the user data to verify the response structure
+      console.log('User data after registration:', data);
+  
       if (response.ok) {
-        localStorage.setItem('user', JSON.stringify(data.user)); // Save user to localStorage
-        setUser(data.user);
+        setUser(data); // Store the user data as received
         setLoggedIn(true);
-        return { success: true }; // Indicate successful registration
+        localStorage.setItem('user', JSON.stringify(data));
+        return { success: true };
       } else {
         console.error('Registration failed:', data.message);
-        return { success: false, message: data.message }; // Indicate failed registration
+        return { success: false, message: data.message || 'Registration failed' };
       }
     } catch (error) {
       console.error('Error during registration:', error);
-      return { success: false, message: 'An unexpected error occurred.' }; // Indicate failed registration
+      return { success: false, message: 'An unexpected error occurred.' };
     }
   };
+  
+  
 
   const logout = () => {
-    localStorage.removeItem('user'); // Remove user from localStorage
     setUser(null);
     setLoggedIn(false);
+    localStorage.removeItem('user');
   };
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser) {
-      setUser(storedUser);
-      setLoggedIn(true);
-    }
-  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loggedIn, login, register, logout }}>
