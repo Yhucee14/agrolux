@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
   const [fullName, setFullName] = useState('');
@@ -15,18 +15,24 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage(''); // Clear previous errors
-  
+
+    // Simple form validation
+    if (!fullName || !email || !password) {
+      setErrorMessage("Please fill out all fields.");
+      setLoading(false);
+      return;
+    }
+
     const result = await register(fullName, email, password); // Await the result
-  
+
     setLoading(false);
-  
+
     if (result && result.success) {
       navigate('/dashboard');
     } else {
       setErrorMessage(result?.message || 'Registration failed. Please try again.');
     }
   };
-  
 
   return (
     <div className="flex items-center justify-center bg-[#204E51] h-[100vh] px-[20px] max-md:px-[10px] flex-col">
@@ -47,7 +53,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit} className="flex flex-col mt-[43px] gap-9">
           <input
             type="text"
-            placeholder="First Name"
+            placeholder="Full Name"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             className="border border-black rounded-[20px] h-[60px] w-full px-[25px] text-[15px] text-black"
@@ -75,8 +81,9 @@ const Signup = () => {
             </div>
           ) : (
             <button
-              className="w-full h-[60px] rounded-[20px] text-white bg-[#204e51] text-[20px] flex items-center justify-center  cursor-pointer max-md:text-[16px]"
+              className="w-full h-[60px] rounded-[20px] text-white bg-[#204e51] text-[20px] flex items-center justify-center cursor-pointer max-md:text-[16px]"
               type="submit"
+              disabled={loading} // Disable button during loading
             >
               Sign Up
             </button>

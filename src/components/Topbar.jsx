@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
 const Topbar = ({ handleLogout }) => {
-  const { user, loggedIn } = useAuth();
+  const { user } = useAuth();
  
 
   const [showAdditionalContent, setShowAdditionalContent] = useState(false);
@@ -19,7 +19,7 @@ const Topbar = ({ handleLogout }) => {
 
         <div className="flex items-center gap-5 ">
           <div className="border h-[40px] w-[90px] text-[18px] flex items-center justify-center rounded-[15px]">
-          <p>{user?.firstName}</p>
+          <p>{user?.fullName}</p>
 
           </div>
           <div

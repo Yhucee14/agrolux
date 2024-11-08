@@ -145,7 +145,7 @@ export const Plant = () => {
               value={selectedCrop}
               onChange={handleCropChange}
               className="h-[50px] w-full max-w-[400px] border-b-[2px] mt-[8px] px-2  border-[#204e51]"
-              defaultValue="defaultCrop" // Set a default value if needed
+           
             >
               <option value="defaultCrop" disabled hidden>
                 Select a Crop
