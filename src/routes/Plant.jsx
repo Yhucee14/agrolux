@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
-import Topbar from "../components/Topbar";
 import nigeriaStates from "./nigeriaStates";
 
 export const Plant = () => {
@@ -133,7 +132,7 @@ export const Plant = () => {
   };
   return (
     <DashboardLayout>
-      <div className="p-[30px] overflow-scroll ">
+      <div className="p-8 overflow-scroll ">
         <div className="flex justify-between ]">
           <h1 className="text-[28px] font-medium text-[#204e51]">
             Plant a crop
@@ -171,13 +170,16 @@ export const Plant = () => {
               ))}
             </select>
           </div>
-          <div className="text-[30px] text-[#204e51] flex justify-between items-center pt-[50px] font-medium max-[1000px]:items-start max-[1000px]:flex-col">
+          <div className="text-[30px] text-[#204e51] flex flex-row justify-between items-center pt-[50px] font-medium max-[1000px]:items-start max-[1000px]:flex-col">
+            <div>
             <h1>
               Temperature :<span className="text-[18px]">{temperature} °C</span>
             </h1>
             <h1>
               Humidity :<span className="text-[18px]">{humidity} %</span>
             </h1>
+            </div>
+        
             <div
               className="bg-[#204e51] w-[100%] max-w-[230px] rounded-[20px] py-[10px] h-[50px] items-center justify-center cursor-pointer flex text-[#ffff] mt-[30px] text-[18px] "
               onClick={handleGenerate}

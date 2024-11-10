@@ -45,18 +45,18 @@ const Dashboard = () => {
 
   return (
     <div className='flex-1 flex flex-col'>
-      <div className="p-[30px] overflow-scroll">
-        <h1 className="text-[28px] font-medium text-[#204e51]">Your crops Progress</h1>
+      <div className="p-[1px] overflow-scroll">
+        {/* <h1 className="text-[28px] font-medium text-[#204e51]">Your crops Progress</h1> */}
         {/* Plant Progress Section */}
-        <div className="flex gap-7 justify-between max-[1126px]:grid max-[1126px]:grid-rows-2 max-[1126px]:grid-flow-col max-[500px]:grid-rows-4 w-full">
+        {/* <div className="flex gap-7 justify-between max-[1126px]:grid max-[1126px]:grid-rows-2 max-[1126px]:grid-flow-col max-[500px]:grid-rows-4 w-full">
           <Plant name="Rice" location="Benue State" progress="33%" color="bg-[#F7FFDD]" />
           <Plant name="Corn" location="Benue State" progress="18%" color="bg-[#204E51]" textColor="text-[#F7FFDD]" />
           <Plant name="Chickpeas" location="Benue State" progress="90%" color="bg-[#F7FFDD]" />
           <Plant name="Add New Crop" icon={true} />
-        </div>
+        </div> */}
         
         {/* Temperature and Humidity Section */}
-        <div className="bg-[#F7FFDD] h-[400px] w-[100%] max-w-[350px] mt-[50px] rounded-[20px] p-[25px]">
+        {/* <div className="bg-[#F7FFDD] h-[400px] w-[100%] max-w-[350px] mt-[50px] rounded-[20px] p-[25px]">
           <h1 className="text-[#204e51] font-bold text-[20px]">Temperature/Humidity</h1>
           <select
             value={state}
@@ -84,7 +84,9 @@ const Dashboard = () => {
           <div className="border-[#204e51] border px-[15px] rounded-[20px] py-[10px] flex items-center justify-center text-[#204e51] gap-3 mt-[20px]">
             H: <p>{humidity ? `${humidity}%` : 'N/A'}</p>
           </div>
-        </div>
+        </div> */}
+
+        <Plant />
       </div>
     </div>
   );

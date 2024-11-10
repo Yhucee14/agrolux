@@ -11,12 +11,12 @@ const Topbar = ({ handleLogout }) => {
     setShowAdditionalContent(!showAdditionalContent);
   };
   return (
-    <div className=" flex  h-[81px]  text-black bg-[white]">
+    <div className=" flex  h-[81px]  text-black bg-[#204e515d]">
       <div className=" mx-2 my-1  flex z-10 w-full items-center justify-between  px-[20px]">
         <div className="text-[#204e51] font-bold text-[28px]">Agrolux</div>
 
         <div className="flex items-center gap-5 ">
-          <div className="border h-[40px] w-[90px] text-[18px] flex items-center justify-center rounded-[15px]">
+          <div className="border h-[40px] w-[90px] bg-white font-bold capitalize text-lg flex items-center justify-center rounded-[15px]">
             <p>{user?.firstName}</p>
           </div>
           <div
