@@ -109,7 +109,7 @@ const Verify = () => {
           />
           
           <p className="text-[15px] font-thin text-start mt-[15px]">
-            A six-digit pin has been sent to your email.
+            A 4-digit pin has been sent to your email.
             <br />
             Please check and enter it here.
           </p>
