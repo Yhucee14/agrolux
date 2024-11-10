@@ -4,7 +4,6 @@ import { useAuth } from "../AuthContext";
 
 const Topbar = ({ handleLogout }) => {
   const { user } = useAuth();
- 
 
   const [showAdditionalContent, setShowAdditionalContent] = useState(false);
 
@@ -14,13 +13,11 @@ const Topbar = ({ handleLogout }) => {
   return (
     <div className=" flex  h-[81px]  text-black bg-[white]">
       <div className=" mx-2 my-1  flex z-10 w-full items-center justify-between  px-[20px]">
-    
         <div className="text-[#204e51] font-bold text-[28px]">Agrolux</div>
 
         <div className="flex items-center gap-5 ">
           <div className="border h-[40px] w-[90px] text-[18px] flex items-center justify-center rounded-[15px]">
-          <p>{user?.fullName}</p>
-
+            <p>{user?.firstName}</p>
           </div>
           <div
             className="cursor-pointer hidden max-md:flex "
@@ -33,24 +30,25 @@ const Topbar = ({ handleLogout }) => {
               viewBox="0 0 24 24"
               fill="none"
             >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M19.75 12C19.75 11.5858 19.4142 11.25 19 11.25H5C4.58579 11.25 4.25 11.5858 4.25 12C4.25 12.4142 4.58579 12.75 5 12.75H19C19.4142 12.75 19.75 12.4142 19.75 12Z"
-                fill="#204E51"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M19.75 7C19.75 6.58579 19.4142 6.25 19 6.25H5C4.58579 6.25 4.25 6.58579 4.25 7C4.25 7.41421 4.58579 7.75 5 7.75H19C19.4142 7.75 19.75 7.41421 19.75 7Z"
-                fill="#204E51"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M19.75 17C19.75 16.5858 19.4142 16.25 19 16.25H5C4.58579 16.25 4.25 16.5858 4.25 17C4.25 17.4142 4.58579 17.75 5 17.75H19C19.4142 17.75 19.75 17.4142 19.75 17Z"
-                fill="#204E51"
-              />
+             <path
+  fillRule="evenodd"
+  clipRule="evenodd"
+  d="M19.75 12C19.75 11.5858 19.4142 11.25 19 11.25H5C4.58579 11.25 4.25 11.5858 4.25 12C4.25 12.4142 4.58579 12.75 5 12.75H19C19.4142 12.75 19.75 12.4142 19.75 12Z"
+  fill="#204E51"
+/>
+<path
+  fillRule="evenodd"
+  clipRule="evenodd"
+  d="M19.75 7C19.75 6.58579 19.4142 6.25 19 6.25H5C4.58579 6.25 4.25 6.58579 4.25 7C4.25 7.41421 4.58579 7.75 5 7.75H19C19.4142 7.75 19.75 7.41421 19.75 7Z"
+  fill="#204E51"
+/>
+<path
+  fillRule="evenodd"
+  clipRule="evenodd"
+  d="M19.75 17C19.75 16.5858 19.4142 16.25 19 16.25H5C4.58579 16.25 4.25 16.5858 4.25 17C4.25 17.4142 4.58579 17.75 5 17.75H19C19.4142 17.75 19.75 17.4142 19.75 17Z"
+  fill="#204E51"
+/>
+
             </svg>
           </div>
         </div>
@@ -102,23 +100,10 @@ const Topbar = ({ handleLogout }) => {
                   </li>
                 </Link>
 
-                {/* <li className="cursor-pointer hover:bg-[#204e51] hover:text-white w-full h-[60px] flex items-center px-3 rounded-[10px]">
-                  Farm Planning
-                </li>
-                <li className="cursor-pointer hover:bg-[#204e51] hover:text-white w-full h-[60px] flex items-center px-3 rounded-[10px]">
-                  Precision agriculture
-                </li>
-                <li className="cursor-pointer hover:bg-[#204e51] hover:text-white w-full h-[60px] flex items-center px-3 rounded-[10px]">
-                  Invest in a crop
-                </li>
-                <li className="cursor-pointer hover:bg-[#204e51] hover:text-white w-full h-[60px] flex items-center px-3 rounded-[10px]">
-                  Join the community
-                </li> */}
               </ul>
             </div>
             <div className="flex gap-[2rem] md:max-lg:gap-[1rem]   max-sm:flex-col">
               <div className="flex text-[#ED4129] text-[20px]  cursor-pointer gap-5  mt-[70px] flex-col">
-          
                 <div
                   className=" flex gap-5 items-center"
                   onClick={handleLogout}

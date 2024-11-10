@@ -1,85 +1,97 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Create context for authentication state
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    // Retrieve user from localStorage if available
-    const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [user, setUser] = useState(null); // User state
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [errorMessage, setErrorMessage] = useState(""); // Error state
+  const navigate = useNavigate(); // For redirection
 
-  const register = async (fullName, email, password) => {
-    try {
-      const response = await fetch(
-        "https://agrolux.onrender.com/api/user/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fullName, email, password }),
-        }
-      );
-      const data = await response.json();
-  
-      if (response.ok) {
-        const user = { firstName: fullName.split(" ")[0], fullName, ...data.user };
-        setUser(user);
-        localStorage.setItem("user", JSON.stringify(user));
-        setError(null);
-        return { success: true }; // Return success
-      } else {
-        return { success: false, message: data.message || "Registration failed" }; // Return error message
-      }
-    } catch (err) {
-      console.error("Error during registration:", err);
-      return { success: false, message: "An unexpected error occurred." }; // Return error message
-    }
-  };
-  
-
+  // Handle login
   const login = async (email, password) => {
+    setIsLoading(true);
     try {
       const response = await fetch("https://agrolux.onrender.com/api/user/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
-      // Check if the response contains the pending account message
-      if (data.message === "Pending Account. Please Verify Your Email") {
-        return { success: false, message: data.message, redirectToVerify: true };
+
+      if (response.ok) {
+        console.log("Login successful", data); // Log the response data
+        setUser(data.user); // Store user info
+        localStorage.setItem("user", JSON.stringify(data.user)); // Save user to localStorage
+        localStorage.setItem("token", data.token); // Save token to localStorage
+        navigate("/dashboard"); // Redirect on success
+      } else {
+        setErrorMessage(data.message || "Login failed. Please try again.");
       }
-  
-      if (data.token && typeof data.token === 'string') {
-        const user = data.user; // Assuming this includes firstName or fullName
-        setUser(user); // Set user in state
-        localStorage.setItem("user", JSON.stringify(user)); // Save to localStorage
-        return { token: data.token, user };
-      }
-  
-      return { success: false, message: 'Token not found in response' };
     } catch (error) {
-      console.error("Error during login:", error);
-      return { success: false, message: 'An unexpected error occurred.' };
+      setErrorMessage("An unexpected error occurred. Please try again.");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
-  
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-    setError(null);
-    navigate("/"); // Redirect to home after logout
+  // Handle signup
+  const signup = async (fullName, email, password) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("https://agrolux.onrender.com/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fullName, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // On successful signup, redirect to verify page
+        navigate(`/verify/${data.userId}`);
+      } else {
+        setErrorMessage(data.message || "Signup failed. Please try again.");
+      }
+    } catch (error) {
+      setErrorMessage("An unexpected error occurred. Please try again.");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // Check user authentication state on app load
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    if (storedUser && storedToken) {
+      setUser(storedUser);
+    } else {
+      setUser(null);
+    }
+  }, []);
+
+  // Handle logout
+  const logout = () => {
+    setUser(null); // Clear user info
+    localStorage.removeItem("user"); // Remove user from localStorage
+    localStorage.removeItem("token"); // Remove token from localStorage
+    navigate("/login"); // Redirect to login page
+  };
+
+  const loggedIn = !!user; // Derive loggedIn state from user state
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, error }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, isLoading, errorMessage, loggedIn }}>
       {children}
     </AuthContext.Provider>
   );
